@@ -1,0 +1,153 @@
+<!-- predict.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+        body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("https://static1.xdaimages.com/wordpress/wp-content/uploads/2021/07/Google-Play-Store-logo-on-gradient-background.jpg");
+        /* Make background image cover the entire screen and fixed */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    nav {
+        background-color:skyblue;
+        overflow: hidden;
+    }
+
+    nav a {
+        float: left;
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    section {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .category-box {
+        display: inline-block;
+        padding: 15px;
+        margin: 10px;
+        background-color: green;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-box:hover {
+        transform: scale(1.1);
+    }
+
+    #features-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .feature-list {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .feature-list li {
+        margin: 10px;
+        padding: 15px;
+        background-color:#2980b9;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-list li:hover {
+        background-color: lightblue;
+    }
+
+</style>
+
+<body>
+
+    <header>
+        <h1 style="margin: 0;">App Recommendation System</h1>
+    </header>
+    
+    <section>
+        <h2>Choose a Category</h2>
+        <div class="category-box" onclick="showFeatures('Social')">Social</div>
+        <div class="category-box" onclick="showFeatures('Entertainment')">Entertainment</div>
+        <div class="category-box" onclick="showFeatures('Music')">Music</div>
+        <div class="category-box" onclick="showFeatures('Photo & Videos')">Photos & Videos</div>
+        <div class="category-box" onclick="showFeatures('Productivity')">Productivity</div>
+        <div class="category-box" onclick="showFeatures('Business')">Business</div>
+        <div class="category-box" onclick="showFeatures('Utilities & Tools')">Utilities & Tools</div>
+        <!-- Add more category boxes as needed -->
+    </section>
+
+    <div id="features-container">
+        <h2> Choose your Feature here..!</h2>
+        <ul id="feature-list" class="feature-list"></ul>
+    </div>
+
+
+    <script>
+        function showFeatures(category) {
+            const features = getFeaturesFromDataset(category);
+            const featureListElement = document.getElementById('feature-list');
+            featureListElement.innerHTML = '';
+            features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                li.addEventListener('click', () => redirectToResultPage(category, feature));
+                featureListElement.appendChild(li);
+            });
+        }
+
+        function redirectToResultPage(category, feature) {
+            // Redirect to result.html with category and feature parameters
+            window.location.href = `/result?category=${category}&feature=${feature}`;
+        }
+
+        function getFeaturesFromDataset(category) {
+    const dummyData = {
+        'Social': ['messaging', 'Secure Messaging', 'Social Photo Sharing', 'Social Networking', 'Visual Discovery and Inspiration', 'Instant Messaging', 'Social News Aggregation and Discussion', 'Unofficial Telegram Client', 'Desktop Version of imo for Video Calls and Chat', 'Professional Networking Analytics', 'Universal Cloud Dashboard', 'Integrated website analytics and insights.', 'Augmented reality constellation identification', 'seamless integration with Windows notifications', 'AI-powered smart replies and suggested stickers in LINE messages', 'Tumblr for browsing and posting on the social media platform'],
+        'Entertainment': ['Streaming Entertainment', 'On-Demand Video Streaming', 'Audio Enhancement', 'Gaming Console Integration', 'Immersive Audio Experience', '3D Painting and Art Creation', 'Streaming Anime and Manga', 'DVD Playback Support', 'youTube Video Download and Conversion', 'Sketching and Drawing Application', 'Personalized Video Recommendations', 'Smart Photo Organization', 'Dynamic Crosshair Customization', 'AI-Enhanced Coloring Suggestions', '4K Video Downloads and MP3 Conversion', ' Frame-by-Frame Animation Creation', ' Floating Video Player for Multitasking', ' Live TV Streaming and Media Conversion', 'Multiscreen TV Streaming', 'Advanced audio enhancements for immersive gaming and media experiences'],
+        'Music': ['Music Streaming', 'Media Library Management', ' Music Streaming', 'Music Streaming & Discovery', 'Extensive Music Library and Radio', 'YouTube Video Download and Conversion', 'Bluetooth Audio Connectivity', 'YouTube Video and Music Download and Conversion', ' Collaborative Music Creation', 'Personalized Radio Station Recommendations', 'Real-time Pitch Correction in Karaoke', 'Download and convert YouTube videos to various formats..', 'Virtual piano with customizable key layouts.', 'AI-assisted automatic beatmatching.', 'Automatic beatmatching and BPM synchronization for seamless mixing.', 'AI-generated dynamic playlists based on user mood and preferences.'],
+        'Photo & Videos': ['Media Player', ' Photo Editing', 'Photo Editing Mastery', ' Creative Photo Collages', 'Cinematic Video Editing', 'Comprehensive PDF Toolkit', 'AI-Powered Photo Editing', 'Versatile Video Editing', 'High-Definition Video Playback', 'User-Friendly Video Editing', ' Multi-functional Screen Recording Suite', 'HEIC Image Format Support and Conversion', 'Advanced Photo Editing Suite', 'Video and Music Conversion', ' Advanced Photo Editing Tools', 'Epson Printer Management', 'Customizable Web Browser', ' High-Quality Media Playback with 4K UHD and HDR', 'Free and Easy Video Editing', ' Open-Source Media Center and Entertainment Hub', 'Samsung Device Photo Gallery', 'Universal Video Playback', 'Comprehensive Video Editing Studio']
+        // Add more categories and features as needed
+    };
+
+    return dummyData[category] || [];
+}
+
+    </script>
+
+</body>
+
+
+</html>
